@@ -19,10 +19,12 @@ public class Blackjack{
     ArrayList<String> dealerCards = new ArrayList<String>();
     ArrayList<String> playerCards = new ArrayList<String>();
 
+    boolean gameActive = true;
+
     public void initGame(){
+        gameActive = true;
         initDeck();
-        boolean isActive = true;
-        while(isActive){
+        while(gameActive){
 
             resetPlayerCards();
             shuffleDeck();
@@ -32,8 +34,25 @@ public class Blackjack{
             stackCard(playerCards);
             playerTurn();
             tools.setTimeOut(1000);
-            dealerTurn();
+            if(gameActive){
+                dealerTurn();
+                if(gameActive){
+                    evaluate();
+                }
+                else{
+                    winGame();
+                }
+            }
 
+            System.out.println("Do you wanna play again?\n Yes?");
+            String answer = scan.next();
+            if(answer.equalsIgnoreCase("yes")){
+                gameActive = true;
+            }
+            else{
+                System.out.println("Goodbye!");
+                gameActive = false;
+            }
         }
     }
 
@@ -153,23 +172,23 @@ public class Blackjack{
             showPlayerCard(playerCards);
             System.out.println(sum);
             if(sum > 21){
-                System.out.println("You Loose!");
+                looseGame();
                 active = false;
             }
             else{
                 System.out.println("Hit(0)");
-                System.out.println("double(1)");
-                System.out.println("Stand(2)");
+                //System.out.println("double(1)");
+                System.out.println("Stand(1)");
                 int input = scan.nextInt();
                 switch(input){
                     case 0:
                         stackCard(playerCards);
                         break;
-                    case 1:
+                    /*case 1:
                         stackCard(playerCards);
                         active = false;
-                        break;
-                    case 2:
+                        break;*/
+                    case 1:
                         active = false;
                         break;
                     default:
@@ -187,7 +206,25 @@ public class Blackjack{
     }
 
     public void dealerTurn(){
-        showDealerCard(true);
+        boolean dealerActive = true;
+        while (dealerActive){
+            tools.clearConsole();
+            int sum = checkValue(dealerCards);
+            showDealerCard(true);
+            System.out.println(checkValue(dealerCards));
+            showPlayerCard(playerCards);
+            if(sum < checkValue(playerCards)){
+                tools.setTimeOut(1500);
+                stackCard(dealerCards);
+            }
+            else{
+                if(sum > 21){
+                    gameActive = false;
+                }
+                dealerActive = false;
+            }
+        }
+
     }
 
     public void showDealerCard(boolean dealerTurn){
@@ -200,6 +237,32 @@ public class Blackjack{
         }
     }
 
+    public void looseGame(){
+        System.out.println("You Loose!");
+        gameActive = false;
+    }
+
+    public void winGame(){
+        System.out.println("You Win");
+    }
+
+    public void drawGame(){
+        System.out.println("It's a draw!");
+    }
+
+    public void evaluate(){
+        int sumPlayer = checkValue(playerCards);
+        int dealerCard = checkValue(dealerCards);
+        if(sumPlayer > dealerCard){
+            winGame();
+        }
+        if(sumPlayer == dealerCard){
+            drawGame();
+        }
+        else{
+            looseGame();
+        }
+    }
 
 
 }

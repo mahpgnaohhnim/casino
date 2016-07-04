@@ -9,13 +9,15 @@ public class Main{
 
 
     public static void main(String[] args){
+
+        // Deklaration der beötigten Variablen
         MenuTools tools = new MenuTools();
 
-        Game1 WuerfelSpiel = new Game1();
+        Wuerfel WuerfelSpiel = new Wuerfel();
         Blackjack Blackjack = new Blackjack();
 
-        Scanner scan = new Scanner(System.in);
         tools.clearConsole();
+
         initGame();
         while(true){
             showMenu();
@@ -38,6 +40,7 @@ public class Main{
         }
     }
 
+    //Start Game(Start Anzeige)
     private static void initGame(){
         MenuTools tools = new MenuTools();
 
@@ -59,14 +62,16 @@ public class Main{
         tools.proceedBreak();
     }
 
+    //Hauptmenue soll angezeigt werden
     private static void showMenu(){
         MenuTools tools = new MenuTools();
         boolean menu = true;
         Scanner scan = new Scanner(System.in);
+        //while schleife damit bei falscher Eingabe und bei Spiel verlassen das Menue angezeigt wird
         while(menu){
             tools.clearConsole();
             String game1 = "===========\n" +
-                    "|Würfel(1)|\n" +
+                    "|Wuerfel(1)|\n" +
                     "===========";
             String game2 =  "==============\n" +
                     "|Blackjack(2)|\n" +
@@ -79,6 +84,7 @@ public class Main{
             System.out.println(game2);
             System.out.println(exit);
 
+            //Eingabe lesen und auswerten
             int input = scan.nextInt();
             switch(input){
                 case 1:
@@ -99,6 +105,8 @@ public class Main{
 
     }
 
+
+    //Spiel beenden
     private static void gameOver(){
         MenuTools tools = new MenuTools();
         tools.clearConsole();

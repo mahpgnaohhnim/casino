@@ -5,10 +5,11 @@ import java.io.IOException;
  */
 import java.util.Scanner;
 
-public class Game1{
+public class Wuerfel{
 
     MenuTools tools = new MenuTools();
 
+    //Hauptmenue des Wuerfelratespiel
     public void mainMenu(){
         Scanner scan = new Scanner(System.in);
 
@@ -22,11 +23,13 @@ public class Game1{
                 "|EXIT(1)|\n" +
                 "=========";
 
+        //Solange isActive true ist wird das Spiel in der Schleife läuft. Fuehrt zu schnelle Fortsetzung des Wuerfelspiel
         while(isActive){
-            System.out.println("Raten Sie die gewürfelte Zahl.");
+            System.out.println("Raten Sie die gewuerfelte Zahl.");
             int trys = 0;
             int input = scan.nextInt();
             int cubeNumber;
+            //Man Ratet eine Zahl und es wird maximal bis 3mal gewuerfelt, bis die geratene Zahl gewuerfelt ist.
             do{
                 trys++;
 
@@ -48,6 +51,7 @@ public class Game1{
                     }
                 }
             }while(trys < 3);
+            //Ausgabe nach dem Spiel
             System.out.println("");
             System.out.println("Wollen Sie weiter spielen?");
             System.out.println(playAgain);
@@ -68,11 +72,13 @@ public class Game1{
 
     }
 
+    //generiert eine Zufallszahl zwischen 1 und 6 und gibt sie zurueck
     private int generateRandom(){
         int number = (int)(Math.random()*6)+1;
         return number;
     }
 
+    //Anzeige der Augenzahlen
     private void showCubeNumber(int num){
         String cubeNumber1 = "=====\n" +
                 "| 1 |\n" +
@@ -99,6 +105,7 @@ public class Game1{
                 "=====";
 
 
+
         switch (num){
             case 1:
                 System.out.println(cubeNumber1);
@@ -121,11 +128,13 @@ public class Game1{
         }
     }
 
+    //Anzeige fuer richtige geratet
     private void showCorrect(){
 
         System.out.println("RIGHT!");
     }
 
+    //Anzeige fuer nicht richtig geratet
     private void showWrong(){
 
         System.out.println("WRONG!\n");
