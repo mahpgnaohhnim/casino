@@ -59,6 +59,7 @@ public class Wuerfel{
 
             int ask = scan.nextInt();
 
+            //Auswertung der Ausgabe
             switch(ask){
                 case 1:
                     isActive = false;
